@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wagner — Desarrollador Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Space+Grotesk:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--cream:#f0ece3;--ink:#111008;--mid:#6b6760;--light:#ddd9d0;--accent:#c8b89a}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-weight:300;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3.5rem;background:rgba(240,236,227,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--light)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;letter-spacing:0.12em;color:var(--ink);text-decoration:none;text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--mid);text-decoration:none;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--ink)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.hero-left{padding:8rem 3rem 4rem 3.5rem;display:flex;flex-direction:column;justify-content:flex-end;border-right:1px solid var(--light)}
+.hero-right{padding:8rem 3.5rem 4rem 3rem;display:flex;flex-direction:column;justify-content:space-between;background:var(--ink)}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--mid);letter-spacing:0.28em;text-transform:uppercase;margin-bottom:2rem}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,7.5rem);font-weight:300;line-height:0.92;letter-spacing:-0.01em;color:var(--ink)}
+.hero-name em{font-style:italic;display:block}
+.hero-right-top{display:flex;flex-direction:column;gap:1.5rem}
+.hero-tag{font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(240,236,227,0.35);letter-spacing:0.25em;text-transform:uppercase}
+.hero-right-desc{font-size:0.95rem;color:rgba(240,236,227,0.6);line-height:1.85;max-width:320px}
+.hero-right-bottom{display:flex;flex-direction:column;gap:1.5rem}
+.hero-cta{display:inline-flex;align-items:center;gap:0.8rem;padding:1rem 1.8rem;background:var(--cream);color:var(--ink);text-decoration:none;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;transition:all 0.25s;align-self:flex-start;font-weight:400}
+.hero-cta:hover{background:var(--accent)}
+.hero-cta svg{width:12px;height:12px}
+.hero-year{font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(240,236,227,0.2);letter-spacing:0.2em}
+.ticker-wrap{overflow:hidden;border-top:1px solid var(--light);border-bottom:1px solid var(--light);padding:0.9rem 0;background:var(--ink)}
+.ticker-inner{display:flex;gap:0;white-space:nowrap;animation:ticker 18s linear infinite}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:rgba(240,236,227,0.25);padding:0 2.5rem;flex-shrink:0}
+.ticker-dot{color:var(--accent);font-style:normal}
+.section{padding:5rem 3.5rem;border-top:1px solid var(--light)}
+.section-header{display:grid;grid-template-columns:140px 1fr;gap:2rem;align-items:start;margin-bottom:3.5rem}
+.section-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--mid);letter-spacing:0.2em;padding-top:0.15rem}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:300;font-style:italic;line-height:1.1;color:var(--ink)}
+.skills-strip{display:flex;border:1px solid var(--light)}
+.skill-block{flex:1;padding:2rem 1.5rem;border-right:1px solid var(--light);transition:background 0.2s}
+.skill-block:last-child{border-right:none}
+.skill-block:hover{background:var(--ink);color:var(--cream)}
+.skill-block:hover .skill-name{color:var(--cream)}
+.skill-block:hover .skill-tags span{border-color:rgba(240,236,227,0.2);color:rgba(240,236,227,0.5)}
+.skill-num{font-family:'Space Mono',monospace;font-size:0.55rem;color:var(--mid);letter-spacing:0.2em;margin-bottom:1.2rem}
+.skill-name{font-size:0.9rem;font-weight:500;color:var(--ink);margin-bottom:1rem;transition:color 0.2s}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.35rem}
+.skill-tags span{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.08em;padding:0.25rem 0.5rem;border:1px solid var(--light);color:var(--mid);transition:all 0.2s}
+.project-item{display:grid;grid-template-columns:140px 1fr auto;gap:2rem;align-items:start;padding:2rem 0;border-bottom:1px solid var(--light);transition:all 0.2s;cursor:default}
+.project-item:first-child{border-top:1px solid var(--light)}
+.project-item:hover{padding-left:1rem}
+.project-idx{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--mid);letter-spacing:0.2em;padding-top:0.2rem}
+.project-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--ink);line-height:1.1;margin-bottom:0.6rem}
+.project-desc{font-size:0.82rem;color:var(--mid);line-height:1.7;max-width:480px}
+.project-meta{display:flex;flex-direction:column;gap:0.4rem;align-items:flex-end;padding-top:0.2rem}
+.project-year{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--mid);letter-spacing:0.15em}
+.project-stack{display:flex;flex-direction:column;gap:0.25rem;align-items:flex-end}
+.project-stack span{font-family:'Space Mono',monospace;font-size:0.55rem;color:var(--accent);letter-spacing:0.1em}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+.about-statement{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;line-height:1.45;color:var(--ink)}
+.about-statement em{font-style:italic;color:var(--mid)}
+.about-details{display:flex;flex-direction:column;gap:0}
+.detail-row{display:flex;justify-content:space-between;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--light)}
+.detail-row:first-child{border-top:1px solid var(--light)}
+.detail-key{font-size:0.75rem;color:var(--mid);letter-spacing:0.05em}
+.detail-val{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--ink)}
+.contact-split{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:end}
+.contact-big{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,5rem);font-weight:300;line-height:1.05}
+.contact-big em{font-style:italic;color:var(--mid)}
+.contact-list{display:flex;flex-direction:column}
+.contact-row{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;border-bottom:1px solid var(--light);text-decoration:none;color:var(--ink);transition:all 0.2s}
+.contact-row:first-child{border-top:1px solid var(--light)}
+.contact-row:hover{color:var(--mid);padding-right:0.5rem}
+.contact-row-label{font-size:0.85rem;letter-spacing:0.05em}
+.contact-row-arrow{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--accent)}
+footer{padding:1.8rem 3.5rem;border-top:1px solid var(--light);display:flex;justify-content:space-between;align-items:center}
+footer span{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--mid);letter-spacing:0.15em;text-transform:uppercase}
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-up.in{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-left{padding:7rem 1.5rem 3rem;border-right:none;border-bottom:1px solid rgba(17,16,8,0.1)}
+  .hero-right{padding:3rem 1.5rem 4rem}
+  .section{padding:3.5rem 1.5rem}
+  .section-header{grid-template-columns:1fr;gap:0.5rem}
+  .skills-strip{flex-direction:column}
+  .skill-block{border-right:none;border-bottom:1px solid var(--light)}
+  .project-item{grid-template-columns:1fr;gap:0.75rem}
+  .about-grid,.contact-split{grid-template-columns:1fr;gap:3rem}
+  footer{padding:1.5rem;flex-direction:column;gap:0.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Wagner</a>
+  <ul class="nav-links">
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Desarrollador Full Stack · Bogotá</p>
+    <h1 class="hero-name">Kevin<em>Wagner</em></h1>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-top">
+      <p class="hero-tag">— Portafolio 2025</p>
+      <p class="hero-right-desc">Construyo aplicaciones web completas — desde el diseño de la base de datos hasta la interfaz del usuario. Soluciones limpias, escalables y que generan resultados reales.</p>
+    </div>
+    <div class="hero-right-bottom">
+      <a class="hero-cta" href="#proyectos">
+        Ver proyectos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="hero-year">© 2025</p>
+    </div>
+  </div>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Vue.js <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Node.js <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">MySQL <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Firebase <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Express <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">PostgreSQL <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Cloudinary <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Git <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">REST APIs <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Vue.js <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Node.js <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">MySQL <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Firebase <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Express <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">PostgreSQL <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Cloudinary <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">Git <span class="ticker-dot">·</span></span>
+    <span class="ticker-item">REST APIs <span class="ticker-dot">·</span></span>
+  </div>
+</div>
+
+<section class="section" id="skills">
+  <div class="section-header fade-up">
+    <span class="section-num">01 — Stack</span>
+    <h2 class="section-title">Tecnologías</h2>
+  </div>
+  <div class="skills-strip fade-up">
+    <div class="skill-block">
+      <p class="skill-num">F / 01</p>
+      <p class="skill-name">Frontend</p>
+      <div class="skill-tags"><span>Vue.js</span><span>HTML5</span><span>CSS3</span><span>JS ES6+</span></div>
+    </div>
+    <div class="skill-block">
+      <p class="skill-num">B / 02</p>
+      <p class="skill-name">Backend</p>
+      <div class="skill-tags"><span>Node.js</span><span>Express</span><span>REST API</span></div>
+    </div>
+    <div class="skill-block">
+      <p class="skill-num">D / 03</p>
+      <p class="skill-name">Bases de datos</p>
+      <div class="skill-tags"><span>MySQL</span><span>PostgreSQL</span><span>Firestore</span></div>
+    </div>
+    <div class="skill-block">
+      <p class="skill-num">T / 04</p>
+      <p class="skill-name">Herramientas</p>
+      <div class="skill-tags"><span>Git</span><span>GitHub</span><span>Cloudinary</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="proyectos">
+  <div class="section-header fade-up">
+    <span class="section-num">02 — Trabajo</span>
+    <h2 class="section-title">Proyectos</h2>
+  </div>
+  <div class="project-item fade-up">
+    <span class="project-idx">01</span>
+    <div class="project-body">
+      <h3 class="project-name">Texticode</h3>
+      <p class="project-desc">Sistema de gestión textil completo con panel administrativo. Módulos de usuarios, clientes y reportes conectados a una base de datos MySQL mediante una API REST propia.</p>
+    </div>
+    <div class="project-meta">
+      <span class="project-year">2024</span>
+      <div class="project-stack"><span>Vue.js</span><span>Node.js</span><span>MySQL</span></div>
+    </div>
+  </div>
+  <div class="project-item fade-up">
+    <span class="project-idx">02</span>
+    <div class="project-body">
+      <h3 class="project-name">Estetic Val</h3>
+      <p class="project-desc">Sitio web para negocio de belleza colombiano con galería de fotos en tiempo real, sistema de calificaciones y gestión de contenido sin necesidad de código.</p>
+    </div>
+    <div class="project-meta">
+      <span class="project-year">2024</span>
+      <div class="project-stack"><span>Firebase</span><span>Cloudinary</span><span>JS</span></div>
+    </div>
+  </div>
+  <div class="project-item fade-up" style="opacity:0.4">
+    <span class="project-idx">03</span>
+    <div class="project-body">
+      <h3 class="project-name">Tu proyecto</h3>
+      <p class="project-desc">¿Tienes una idea o un negocio que necesita presencia digital? Hablemos.</p>
+    </div>
+    <div class="project-meta"><span class="project-year">2025</span></div>
+  </div>
+</section>
+
+<section class="section" id="sobre-mi">
+  <div class="section-header fade-up">
+    <span class="section-num">03 — Perfil</span>
+    <h2 class="section-title">Sobre mí</h2>
+  </div>
+  <div class="about-grid">
+    <p class="about-statement fade-up">Soy <em>Kevin Wagner</em>, desarrollador full stack con 18 años. He construido proyectos reales de software — sistemas de gestión empresarial, plataformas en la nube y sitios web para negocios colombianos. <em>Trabajo con resultados en mente, no solo con código.</em></p>
+    <div class="about-details fade-up">
+      <div class="detail-row"><span class="detail-key">Ubicación</span><span class="detail-val">Bogotá, Colombia</span></div>
+      <div class="detail-row"><span class="detail-key">Disponibilidad</span><span class="detail-val">Freelance · Remoto</span></div>
+      <div class="detail-row"><span class="detail-key">Proyectos entregados</span><span class="detail-val">2+</span></div>
+      <div class="detail-row"><span class="detail-key">Stack principal</span><span class="detail-val">Vue · Node · MySQL</span></div>
+      <div class="detail-row"><span class="detail-key">Idiomas</span><span class="detail-val">Español · Inglés</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacto">
+  <div class="section-header fade-up">
+    <span class="section-num">04 — Contacto</span>
+    <h2 class="section-title">Hablemos</h2>
+  </div>
+  <div class="contact-split">
+    <h2 class="contact-big fade-up">¿Tienes un<br>proyecto<br><em>en mente?</em></h2>
+    <div class="contact-list fade-up">
+      <a class="contact-row" href="mailto:stevanwagner1@gmail.com">
+        <span class="contact-row-label">stevanwagner1@gmail.com</span>
+        <span class="contact-row-arrow">→</span>
+      </a>
+      <a class="contact-row" href="https://github.com/kvnwagner" target="_blank">
+        <span class="contact-row-label">GitHub — kvnwagner</span>
+        <span class="contact-row-arrow">→</span>
+      </a>
+      <a class="contact-row" href="https://wa.me/573224421303" target="_blank">
+        <span class="contact-row-label">WhatsApp</span>
+        <span class="contact-row-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Kevin Wagner</span>
+  <span>Bogotá · Colombia</span>
+  <span>Full Stack Developer</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in'),i*100);
+  });
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
